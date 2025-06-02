@@ -9,9 +9,9 @@ spring:
     gateway:
       routes:
         - id: user-service
-          uri: lb://user-service
+          uri: http://localhost:8082
           predicates:
-            - Path=/users/**
+            - Path=/auth, /auth/**, /login, /register, /users/**, /css/**, /js/**
 
         - id: book-service
           uri: lb://book-service
