@@ -1,4 +1,4 @@
-// Gestion des onglets
+
 const loginTab = document.getElementById('login-tab');
 const registerTab = document.getElementById('register-tab');
 const loginForm = document.getElementById('login-form');
@@ -18,14 +18,14 @@ registerTab.addEventListener('click', function() {
     loginForm.classList.remove('active');
 });
 
-// Vérification des mots de passe avant soumission du formulaire d'inscription
+
 const registerFormEl = registerForm.querySelector('form');
 registerFormEl.addEventListener('submit', function(e) {
     const password = document.getElementById('register-password').value;
     const confirmPassword = document.getElementById('register-confirm-password').value;
 
     if (password !== confirmPassword) {
-        e.preventDefault(); // Empêche l'envoi du formulaire
+        e.preventDefault(); 
         alert('Les mots de passe ne correspondent pas.');
     }
 });

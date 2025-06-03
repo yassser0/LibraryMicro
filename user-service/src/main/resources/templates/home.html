@@ -14,14 +14,19 @@
             
             <nav class="nav-links">
                 <a th:href="@{/home}" class="nav-link active">Accueil</a>
+                <a th:href="@{/BooksAvailable}" class="nav-link">Livres Disponibles</a>
                 <a href="#Fonctionnalités" class="nav-link">Fonctionnalités</a>
                 <a href="#Contact" class="nav-link">Contact</a>
             </nav>
             
-            <div class="auth-buttons">
+        <div class="auth-buttons" th:if="${session.user == null}">
                 <a th:href="@{/auth}" class="btn btn-outline">Connexion</a>
                 <a th:href="@{/auth}" class="btn btn-primary">S'inscrire</a>
-            </div>
+        </div>
+        <div class="auth-buttons" th:if="${session.user != null}">
+                <a th:href="@{/logout}" class="btn btn-outline">Déconnexion</a>
+        </div>
+
             
             <button class="mobile-menu-btn">☰</button>
         </div>
@@ -31,9 +36,9 @@
         <div class="hero-container">
             <h1>Gérez votre BookNet efficacement</h1>
             <p>BookNet est une solution complète pour la gestion des BookNets, permettant de suivre les emprunts, gérer les adhérents et organiser votre catalogue de livres.</p>
-            <div class="hero-buttons">
-                <a th:href="@{/auth}" class="btn btn-outline" style="background-color: rgba(255,255,255,0.2); color: white; border-color: white;">S'inscrire</a>
-            </div>
+              <div class="hero-buttons" th:if="${session.user == null}">
+    <a th:href="@{/auth}" class="btn btn-outline" style="background-color: rgba(255,255,255,0.2); color: white; border-color: white;">S'inscrire</a>
+</div>
         </div>
     </section>
     
@@ -212,14 +217,15 @@
             </div>
         </div>
     </section>
-    
-    <section class="cta">
-        <div class="cta-container">
-            <h2>Prêt à transformer votre BookNet?</h2>
-            <p>Rejoignez des centaines de BookNets qui ont amélioré leur gestion grâce à notre solution.</p>
-            <a th:href="@{/auth}" class="btn btn-primary" style="background-color: white; color: var(--primary-dark);">S'inscrire</a>
-        </div>
-    </section>
+  
+    <section class="cta" th:if="${session.user == null}">
+    <div class="cta-container">
+        <h2>Prêt à transformer votre BookNet?</h2>
+        <p>Rejoignez des centaines de BookNets qui ont amélioré leur gestion grâce à notre solution.</p>
+        <a th:href="@{/auth}" class="btn btn-outline" style="background-color: rgba(255,255,255,0.2); color: white; border-color: white;">S'inscrire</a>
+    </div>
+</section>
+
     
     <footer>
         <div class="footer-container">

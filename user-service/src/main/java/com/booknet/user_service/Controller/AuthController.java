@@ -2,6 +2,7 @@ package com.booknet.user_service.Controller;
 
 import com.booknet.user_service.Entity.User;
 import com.booknet.user_service.Service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,7 @@ public class AuthController {
     private UserService userService;
 
     @GetMapping("/auth")
-    public String AuthPage(Model model,
+    public String authPage(Model model,
                            @RequestParam(required = false) String success,
                            @RequestParam(required = false) String error) {
         if (success != null) {
@@ -29,38 +30,49 @@ public class AuthController {
 
     @GetMapping("/login")
     public String handleLoginGet() {
-        return "redirect:/auth";
+        return "redirect:http://localhost:8081/auth";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+    public String registerUser(@ModelAttribute User user,
+                               RedirectAttributes redirectAttributes,
+                               HttpSession session) {
         try {
             if (userService.emailExists(user.getEmail())) {
                 redirectAttributes.addAttribute("error", "Cet email est déjà utilisé.");
-                return "redirect:/auth";
+                return "redirect:http://localhost:8081/auth";
             }
 
             userService.registerUser(user);
+            session.setAttribute("user", user); 
 
-            
             return "redirect:http://localhost:8081/home";
         } catch (Exception e) {
             redirectAttributes.addAttribute("error", "Erreur lors de l'inscription : " + e.getMessage());
-            return "redirect:/auth";
+            return "redirect:http://localhost:8081/auth";
         }
     }
 
     @PostMapping("/login")
     public String loginUser(@RequestParam String email,
                             @RequestParam String password,
-                            RedirectAttributes redirectAttributes) {
-        if (userService.login(email, password).isPresent()) {
+                            RedirectAttributes redirectAttributes,
+                            HttpSession session) {
+        return userService.login(email, password)
+                .map(user -> {
+                    session.setAttribute("user", user); 
+                    return "redirect:http://localhost:8081/home";
+                })
+                .orElseGet(() -> {
+                    redirectAttributes.addAttribute("error", "Email ou mot de passe incorrect.");
+                    return "redirect:http://localhost:8081/auth";
+                });
+    }
 
-           
-            return "redirect:http://localhost:8081/home";
-        } else {
-            redirectAttributes.addAttribute("error", "Email ou mot de passe incorrect.");
-            return "redirect:/auth";
-        }
+    @GetMapping("/logout")
+    public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
+        session.invalidate(); 
+        redirectAttributes.addAttribute("success", "Déconnexion réussie.");
+          return "redirect:http://localhost:8081/home";
     }
 }
