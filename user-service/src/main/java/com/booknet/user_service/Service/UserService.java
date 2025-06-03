@@ -17,13 +17,14 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // Inscription
     public void registerUser(User user) {
-        // Hash le mot de passe avant de l'enregistrer
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         userRepository.save(user);
     }
 
+    // Connexion
     public Optional<User> login(String email, String password) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
@@ -35,7 +36,24 @@ public class UserService {
         return Optional.empty();
     }
 
+    // Vérifier si l'email existe déjà
     public boolean emailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    // Mettre à jour un utilisateur (profil ou email)
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
+    // Vérifier que le mot de passe fourni correspond à l'utilisateur (avant changement de mot de passe)
+    public boolean checkPassword(User user, String rawPassword) {
+        return passwordEncoder.matches(rawPassword, user.getPassword());
+    }
+
+    // Changer le mot de passe (en hashant)
+    public void changePassword(User user, String newPassword) {
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 }

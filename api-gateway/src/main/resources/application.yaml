@@ -11,7 +11,7 @@ spring:
         - id: user-service
           uri: http://localhost:8082
           predicates:
-            - Path=/auth, /auth/**, /login, /register,/logout, /users/**, /css/**, /js/**,/home,/home/**,/BooksAvailable,/BooksAvailable/**
+            - Path=/auth, /auth/**, /login, /register,/logout, /users/**, /css/**, /js/**,/home,/home/**,/BooksAvailable,/BooksAvailable/**,/profile,/profile/**,/update-profile,/update-email,/update-password,
 
         - id: book-service
           uri: lb://book-service

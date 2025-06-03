@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Profil - BookNet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+           <a th:href="@{/home}" class="logo">Book<span>Net</span></a>
+            
+            <nav class="nav-links">
+                <a th:href="@{/home}" class="nav-link active">Accueil</a>
+                <a th:href="@{/profile}" class="nav-link">profile</a>
+                <a th:href="@{/BooksAvailable}" class="nav-link">Livres Disponibles</a>
+                <a th:href="@{/home#Fonctionnalités}" class="nav-link">Fonctionnalités</a>
+                <a th:href="@{/home#Contact}" class="nav-link">Contact</a>
+            </nav>
+            
+        <div class="auth-buttons" th:if="${session.user == null}">
+                <a th:href="@{/auth}" class="btn btn-outline">Connexion</a>
+                <a th:href="@{/auth}" class="btn btn-primary">S'inscrire</a>
+        </div>
+        <div class="auth-buttons" th:if="${session.user != null}">
+                <a th:href="@{/logout}" class="btn btn-outline">Déconnexion</a>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-title">
+        <h1>
+            <i class="fas fa-user-circle"></i>
+            Mon Profil
+        </h1>
+        <p>Gérez vos informations personnelles et paramètres de compte</p>
+    </section>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+             
+                    <div class="avatar-upload">
+                        
+                    </div>
+                </div>
+              
+                <h2 class="profile-name"  th:text="${user.name}"></h2>
+                <p class="profile-email"  th:text="${user.email}" ></p>
+                
+              
+            </div>
+
+            <!-- Profile Forms -->
+            <div class="profile-forms">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h2>
+                        <i class="fas fa-user"></i>
+                        Informations Personnelles
+                    </h2>
+                    <!-- Les messages de succès/erreur seront affichés par Thymeleaf -->
+                    <div class="message success" th:if="${infoSuccess}">
+                        <i class="fas fa-check-circle"></i>
+                        <span th:text="${infoSuccess}">Informations mises à jour avec succès !</span>
+                    </div>
+                    <form id="personal-info-form" method="post" action="/update-profile">
+                        <div class="form-row">
+                            <div class="form-group">
+                            <label class="form-label">Nom actuel</label>
+                            <input type="text" class="form-input" th:value="${user.name}" disabled>
+                        </div>
+                            <div class="form-group">
+                                <label class="form-label">Nom</label>
+                                <input type="text" class="form-input" name="name" th:value="${user.name}" required>
+                            </div>
+                        </div>
+                       
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-outline">Annuler</button>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i>
+                                Sauvegarder
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Email Settings -->
+                <div class="form-section">
+                    <h2>
+                        <i class="fas fa-envelope"></i>
+                        Adresse Email
+                    </h2>
+                    <div class="message success" th:if="${emailSuccess}">
+                        <i class="fas fa-check-circle"></i>
+                        <span th:text="${emailSuccess}">Email mis à jour avec succès !</span>
+                    </div>
+                    <form id="email-form" method="post" action="/update-email">
+                        <div class="form-group">
+                            <label class="form-label">Email actuel</label>
+                            <input type="email" class="form-input" th:value="${user.email}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nouvel email</label>
+                            <input type="email" class="form-input" name="newEmail" placeholder="nouveau@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirmer le nouvel email</label>
+                            <input type="email" class="form-input" name="confirmEmail" placeholder="nouveau@email.com" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-outline">Annuler</button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-envelope"></i>
+                                Mettre à jour l'email
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Borrowed Books (exemple statique, à remplacer par Thymeleaf) 
+                <div class="form-section">
+                    <h2>
+                        <i class="fas fa-book-open"></i>
+                        Mes Livres Empruntés
+                    </h2>
+                    <div class="borrowed-books-list">
+                         Ici une boucle Thymeleaf peut générer les éléments empruntés 
+                        <div class="borrowed-book-item">
+                            <div class="borrowed-book-cover">
+                                <div class="book-placeholder"><i class="fas fa-book"></i></div>
+                            </div>
+                            <div class="borrowed-book-info">
+                                <h3 class="borrowed-book-title">Le Petit Prince</h3>
+                                <p class="borrowed-book-author">Antoine de Saint-Exupéry</p>
+                                <div class="borrowed-book-meta">
+                                    <span class="borrowed-date"><i class="fas fa-calendar-alt"></i> Emprunté le 15 Mai 2024</span>
+                                    <span class="return-date due-soon"><i class="fas fa-clock"></i> À rendre le 15 Juin 2024</span>
+                                </div>
+                                <div class="book-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%"></div>
+                                    </div>
+                                    <span class="progress-text">75% lu</span>
+                                </div>
+                            </div>
+                            <div class="borrowed-book-actions">
+                                <form method="post" action="/books/1/renew">
+                                    <button class="btn btn-primary btn-sm" type="submit">
+                                        <i class="fas fa-redo"></i>
+                                        Renouveler
+                                    </button>
+                                </form>
+                                <form method="post" action="/books/1/return">
+                                    <button class="btn btn-success btn-sm" type="submit">
+                                        <i class="fas fa-check"></i>
+                                        Rendre
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                         Répéter pour chaque livre 
+                    </div>
+                </div> -->
+
+                <!-- Password Settings -->
+                <div class="form-section">
+                    <h2>
+                        <i class="fas fa-lock"></i>
+                        Mot de passe
+                    </h2>
+                    <div class="message success" th:if="${passwordSuccess}">
+                        <i class="fas fa-check-circle"></i>
+                        <span th:text="${passwordSuccess}">Mot de passe modifié avec succès !</span>
+                    </div>
+                    <div class="message error" th:if="${passwordError}">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span th:text="${passwordError}">Les mots de passe ne correspondent pas.</span>
+                    </div>
+                    <form id="password-form" method="post" action="/update-password">
+                        <div class="form-group">
+                            <label class="form-label">Mot de passe actuel</label>
+                            <input type="password" class="form-input" name="currentPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nouveau mot de passe</label>
+                            <input type="password" class="form-input" name="newPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirmer le nouveau mot de passe</label>
+                            <input type="password" class="form-input" name="confirmPassword" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-outline">Annuler</button>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-key"></i>
+                                Changer le mot de passe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
