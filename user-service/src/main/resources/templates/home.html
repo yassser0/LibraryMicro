@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" th:href="@{/css/home.css}">
+    <title>BookNet - Accueil</title>
+    
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a th:href="@{/home}" class="logo">Book<span>Net</span></a>
+            
+            <nav class="nav-links">
+                <a th:href="@{/home}" class="nav-link active">Accueil</a>
+                <a href="#Fonctionnalités" class="nav-link">Fonctionnalités</a>
+                <a href="#Contact" class="nav-link">Contact</a>
+            </nav>
+            
+            <div class="auth-buttons">
+                <a th:href="@{/auth}" class="btn btn-outline">Connexion</a>
+                <a th:href="@{/auth}" class="btn btn-primary">S'inscrire</a>
+            </div>
+            
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Gérez votre BookNet efficacement</h1>
+            <p>BookNet est une solution complète pour la gestion des BookNets, permettant de suivre les emprunts, gérer les adhérents et organiser votre catalogue de livres.</p>
+            <div class="hero-buttons">
+                <a th:href="@{/auth}" class="btn btn-outline" style="background-color: rgba(255,255,255,0.2); color: white; border-color: white;">S'inscrire</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="section-title">
+            <h2 id="Fonctionnalités">Fonctionnalités principales</h2>
+            <p>Découvrez comment BookNet peut transformer la gestion de votre BookNet avec ses fonctionnalités innovantes.</p>
+        </div>
+        
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 21l-8-9h16l-8 9zm0-18c-3.315 0-6 2.685-6 6s2.685 6 6 6 6-2.685 6-6-2.685-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+                    </svg>
+                </div>
+                <h3>Gestion des livres</h3>
+                <p>Créez un catalogue complet de votre collection avec couvertures, résumés, auteurs et catégories pour retrouver facilement chaque ouvrage.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <h3>Gestion des adhérents</h3>
+                <p>Suivez les informations de vos lecteurs, gérez les abonnements et permettez-leur de réserver des livres en ligne.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                    </svg>
+                </div>
+                <h3>Suivi des emprunts</h3>
+                <p>Gérez facilement les prêts et retours, envoyez des rappels automatiques et visualisez l'historique des emprunts.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+                    </svg>
+                </div>
+                <h3>Statistiques détaillées</h3>
+                <p>Analysez les tendances d'emprunt, identifiez les livres populaires et obtenez des informations sur l'activité de votre BookNet.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M13 13v8h8v-8h-8zM3 21h8v-8H3v8zM3 3v8h8V3H3zm13.66-1.31L11 7.34 16.66 13l5.66-5.66-5.66-5.65z"/>
+                    </svg>
+                </div>
+                <h3>Interface intuitive</h3>
+                <p>Naviguez facilement dans un environnement convivial conçu pour tous les niveaux d'utilisateurs, des bibliothécaires aux bénévoles.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                    </svg>
+                </div>
+                <h3>Sécurité des données</h3>
+                <p>Protégez les informations de votre BookNet et de vos adhérents avec un système sécurisé et des sauvegardes automatiques.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">BookNets utilisatrices</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number">2M+</div>
+                <div class="stat-label">Livres gérés</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number">99%</div>
+                <div class="stat-label">Satisfaction client</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support disponible</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="how-it-works">
+        <div class="section-title">
+            <h2>Comment ça marche</h2>
+            <p>BookNet est facile à mettre en place et à utiliser. Voici comment démarrer en quelques étapes simples.</p>
+        </div>
+        
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Créez votre compte</h3>
+                    <p>Inscrivez-vous en quelques minutes et configurez votre profil de BookNet avec vos informations personnalisées.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Importez votre catalogue</h3>
+                    <p>Ajoutez vos livres manuellement ou importez votre collection existante depuis un fichier Excel ou CSV.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Ajoutez vos adhérents</h3>
+                    <p>Créez des profils pour vos lecteurs et configurez les paramètres d'emprunt selon vos besoins.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Commencez à gérer</h3>
+                    <p>Vous êtes prêt ! Commencez à enregistrer les emprunts, retours et exploitez toutes les fonctionnalités du système.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>Ce que disent nos utilisateurs</h2>
+            <p>Découvrez les expériences de BookNets qui utilisent déjà notre solution.</p>
+        </div>
+        
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"BookNet a transformé notre façon de gérer la BookNet municipale. Nos processus sont maintenant plus rapides et nos lecteurs apprécient la possibilité de réserver des livres en ligne."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <h4>Marie Durand</h4>
+                        <p>Bibliothécaire en chef, BookNet de Lyon</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Le système de suivi des emprunts est incroyablement efficace. Nous avons réduit nos retards de retour de 80% grâce aux rappels automatiques. Je recommande vivement cette solution."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <h4>Thomas Leclerc</h4>
+                        <p>Directeur, Médiathèque de Marseille</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"En tant que petite BookNet associative, nous avions besoin d'une solution abordable mais complète. BookNet répond parfaitement à nos besoins et le support client est exceptionnel."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <h4>Sophie Martin</h4>
+                        <p>Présidente, Association Lire Ensemble</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="cta-container">
+            <h2>Prêt à transformer votre BookNet?</h2>
+            <p>Rejoignez des centaines de BookNets qui ont amélioré leur gestion grâce à notre solution.</p>
+            <a th:href="@{/auth}" class="btn btn-primary" style="background-color: white; color: var(--primary-dark);">S'inscrire</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3 id="Contact">BookNet</h3>
+                <ul class="footer-links">
+                    <li><a href="#">À propos de nous</a></li>
+                    <li><a href="#">Notre équipe</a></li>
+                    <li><a href="#">Carrières</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+             <div class="footer-column">
+                <h3>Produit</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Fonctionnalités</a></li>
+                    <li><a href="#">Tarifs</a></li>
+                    <li><a href="#">Témoignages</a></li>
+                    <li><a href="#">Foire aux questions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Ressources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Centre d'aide</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Tutoriels vidéo</a></li>
+                    <li><a href="#">Webinaires</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li><a href="#">support@booknet.com</a></li>
+                    <li><a href="#">07 16 97 22 38</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 BookNet. Tous droits réservés.</p>
+        </div>
+    </footer>
+    
+    <script  th:src="@{/js/home.js}"></script>
+</body>
+</html>

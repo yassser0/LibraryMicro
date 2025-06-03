@@ -28,7 +28,7 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String handleLoginGet(RedirectAttributes redirectAttributes) {
+    public String handleLoginGet() {
         return "redirect:/auth";
     }
 
@@ -41,12 +41,13 @@ public class AuthController {
             }
 
             userService.registerUser(user);
-            redirectAttributes.addAttribute("success", "Inscription réussie !");
+
+            
+            return "redirect:http://localhost:8081/home";
         } catch (Exception e) {
             redirectAttributes.addAttribute("error", "Erreur lors de l'inscription : " + e.getMessage());
+            return "redirect:/auth";
         }
-
-        return "redirect:/auth";
     }
 
     @PostMapping("/login")
@@ -54,8 +55,9 @@ public class AuthController {
                             @RequestParam String password,
                             RedirectAttributes redirectAttributes) {
         if (userService.login(email, password).isPresent()) {
-            redirectAttributes.addAttribute("success", "Bienvenue !");
-            return "redirect:/auth";
+
+           
+            return "redirect:http://localhost:8081/home";
         } else {
             redirectAttributes.addAttribute("error", "Email ou mot de passe incorrect.");
             return "redirect:/auth";
