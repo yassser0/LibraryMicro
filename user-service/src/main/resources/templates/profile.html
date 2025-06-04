@@ -172,41 +172,48 @@
                 </div> -->
 
                 <!-- Password Settings -->
-                <div class="form-section">
-                    <h2>
-                        <i class="fas fa-lock"></i>
-                        Mot de passe
-                    </h2>
-                    <div class="message success" th:if="${passwordSuccess}">
-                        <i class="fas fa-check-circle"></i>
-                        <span th:text="${passwordSuccess}">Mot de passe modifié avec succès !</span>
-                    </div>
-                    <div class="message error" th:if="${passwordError}">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span th:text="${passwordError}">Les mots de passe ne correspondent pas.</span>
-                    </div>
-                    <form id="password-form" method="post" action="/update-password">
-                        <div class="form-group">
-                            <label class="form-label">Mot de passe actuel</label>
-                            <input type="password" class="form-input" name="currentPassword" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Nouveau mot de passe</label>
-                            <input type="password" class="form-input" name="newPassword" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Confirmer le nouveau mot de passe</label>
-                            <input type="password" class="form-input" name="confirmPassword" required>
-                        </div>
-                        <div class="form-actions">
-                            <button type="reset" class="btn btn-outline">Annuler</button>
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fas fa-key"></i>
-                                Changer le mot de passe
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<div class="form-section">
+    <h2>
+        <i class="fas fa-lock"></i>
+        Mot de passe
+    </h2>
+    
+   <!-- Message de succès -->
+    <div class="message success" th:if="${param.passwordSuccess}">
+        <i class="fas fa-check-circle"></i>
+        <span th:text="${param.passwordSuccess}"></span>
+    </div>
+    
+     
+    <!-- Affiche le message d'erreur -->
+    <div class="message error" th:if="${param.passwordError}">
+        <i class="fas fa-exclamation-circle"></i>
+        <span th:text="${param.passwordError}"></span>
+    </div>
+    
+    <form id="password-form" method="post" action="/update-password">
+        <div class="form-group">
+            <label class="form-label">Mot de passe actuel</label>
+            <input type="password" class="form-input" name="currentPassword" required>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Nouveau mot de passe</label>
+            <input type="password" class="form-input" name="newPassword" required>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Confirmer le nouveau mot de passe</label>
+            <input type="password" class="form-input" name="confirmPassword" required>
+        </div>
+        <div class="form-actions">
+            <button type="reset" class="btn btn-outline">Annuler</button>
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-key"></i>
+                Changer le mot de passe
+            </button>
+        </div>
+    </form>
+</div>
+
             </div>
         </div>
     </section>

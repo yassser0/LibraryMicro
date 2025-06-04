@@ -72,26 +72,31 @@ public class ProfileController {
     }
 
     // Update password
-    @PostMapping("/update-password")
-    public String updatePassword(@RequestParam String currentPassword,
-                                 @RequestParam String newPassword,
-                                 @RequestParam String confirmPassword,
-                                 HttpSession session,
-                                 RedirectAttributes redirectAttributes) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) return "redirect:http://localhost:8081/auth";
+   @PostMapping("/update-password")
+public String updatePassword(@RequestParam String currentPassword,
+                             @RequestParam String newPassword,
+                             @RequestParam String confirmPassword,
+                             HttpSession session,
+                             RedirectAttributes redirectAttributes) {
+    User user = (User) session.getAttribute("user");
+    if (user == null) 
+        return "redirect:http://localhost:8081/auth";
 
-        if (!userService.checkPassword(user, currentPassword)) {
-            redirectAttributes.addFlashAttribute("passwordError", "Mot de passe actuel incorrect.");
-            return "redirect:http://localhost:8081/profile";
-        }
-        if (!newPassword.equals(confirmPassword)) {
-            redirectAttributes.addFlashAttribute("passwordError", "Les mots de passe ne correspondent pas.");
-            return "redirect:http://localhost:8081/profile";
-        }
-
-        userService.changePassword(user, newPassword);
-        redirectAttributes.addFlashAttribute("passwordSuccess", "Mot de passe modifié avec succès !");
-        return "redirect:http://localhost:8081/profile";
+    if (!userService.checkPassword(user, currentPassword)) {
+        redirectAttributes.addAttribute("passwordError", "Mot de passe actuel incorrect.");
+        return "redirect:http://localhost:8081/profile?passwordError=Mot+de+passe+actuel+incorrect.";
     }
+    if (!newPassword.equals(confirmPassword)) {
+        redirectAttributes.addAttribute("passwordError", "Les mots de passe ne correspondent pas");
+        return "redirect:http://localhost:8081/profile?passwordError=Les+mots+de+passe+ne+correspondent+pas.";
+        
+    }
+
+    userService.changePassword(user, newPassword);
+    redirectAttributes.addAttribute("passwordSuccess", "Mot de passe modifié avec succès !");
+    return "redirect:http://localhost:8081/profile?passwordSuccess=Mot+de+passe+modifié+avec+succès+!";
+}
+
+
+   
 }
