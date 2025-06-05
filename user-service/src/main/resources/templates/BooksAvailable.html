@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookNet - Livres Disponibles</title>
-    <link rel="stylesheet" th:href="@{/css/BooksAvailable.css}">
+    <link rel="stylesheet" th:href="@{/user-css/BooksAvailable.css}">
 </head>
 <body>
     <header>
@@ -13,6 +13,7 @@
             
           <nav class="nav-links">
                 <a th:href="@{/home}" class="nav-link active">Accueil</a>
+                  <a th:href="@{/profile}" class="nav-link" th:if="${session.user != null}">profile</a>
                 <a th:href="@{/BooksAvailable}" class="nav-link">Livres Disponibles</a>
                 <a th:href="@{/home#Fonctionnalités}" class="nav-link">Fonctionnalités</a>
                 <a href="#Contact" class="nav-link">Contact</a>
@@ -267,6 +268,6 @@
     </footer>
     
     
-    <script th:src="@{/js/BooksAvailable.js}"></script>
+    <script th:src="@{/user-js/BooksAvailable.js}"></script>
 </body>
 </html>

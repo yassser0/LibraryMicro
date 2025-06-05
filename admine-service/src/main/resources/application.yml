@@ -1,0 +1,17 @@
+
+server:
+  port: 8084
+
+spring:
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+  application:
+    name: admine-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
