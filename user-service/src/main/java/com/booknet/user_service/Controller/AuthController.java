@@ -53,21 +53,29 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/login")
-    public String loginUser(@RequestParam String email,
-                            @RequestParam String password,
-                            RedirectAttributes redirectAttributes,
-                            HttpSession session) {
-        return userService.login(email, password)
-                .map(user -> {
-                    session.setAttribute("user", user); 
-                    return "redirect:http://localhost:8081/home";
-                })
-                .orElseGet(() -> {
-                    redirectAttributes.addAttribute("error", "Email ou mot de passe incorrect.");
-                    return "redirect:http://localhost:8081/auth";
-                });
-    }
+  @PostMapping("/login")
+public String loginUser(@RequestParam String email,
+                        @RequestParam String password,
+                        RedirectAttributes redirectAttributes,
+                        HttpSession session) {
+    return userService.login(email, password)
+            .map(user -> {
+                session.setAttribute("user", user);
+
+                // ✅ Rediriger vers dashboard si admin
+                if ("admine@gmail.com".equalsIgnoreCase(user.getEmail())) {
+                    return "redirect:http://localhost:8081/usersDashbord";
+                }
+
+                // Sinon, utilisateur normal
+                return "redirect:http://localhost:8081/home";
+            })
+            .orElseGet(() -> {
+                redirectAttributes.addAttribute("error", "Email ou mot de passe incorrect.");
+                return "redirect:http://localhost:8081/auth";
+            });
+}
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session, RedirectAttributes redirectAttributes) {

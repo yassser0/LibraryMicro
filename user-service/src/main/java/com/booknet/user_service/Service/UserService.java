@@ -1,12 +1,15 @@
 package com.booknet.user_service.Service;
 
+import com.booknet.user_service.DTO.UserDTO;
 import com.booknet.user_service.Entity.User;
 import com.booknet.user_service.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -56,4 +59,10 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
     }
+    public List<UserDTO> getAllUserDTOs() {
+    return userRepository.findAll().stream()
+            .map(user -> new UserDTO(user.getId(), user.getName(), user.getEmail()))
+            .collect(Collectors.toList());
+}
+
 }

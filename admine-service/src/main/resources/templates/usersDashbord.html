@@ -5,58 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord Admin - BookNet</title>
     <link rel="stylesheet" th:href="@{/admine-css/usersDashbord.css}">
-
-    
 </head>
 <body>
     <header>
         <div class="header-container">
-            <a href="#" class="logo">Book<span>Net</span></a>
-            <div class="admin-info">
-                <span>Administrateur</span>
-                <div class="admin-avatar">A</div>
+            <a th:href="@{/home}" class="logo">Book<span>Net</span></a>
+            <div class="nav-center">
+            <nav class="nav-links">
+                <a th:href="@{/usersDashbord}" class="nav-link active">Users Dashbord</a>
+            </nav>
             </div>
+            <div class="auth-buttons">
+                <a th:href="@{/logout}"  class="btn btn-outline">Déconnexion</a>   
+            <div class="spacer"></div>
         </div>
     </header>
-    
+
     <div class="main-container">
-        <div class="dashboard-header">
-            <h1 class="dashboard-title">Tableau de bord Administrateur</h1>
-            <p class="dashboard-subtitle">Gérez les utilisateurs inscrits de votre BookNet</p>
-        </div>
         
         <!-- Statistiques -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon users">👥</div>
                 <div class="stat-content">
-                    <h3 id="total-users">124</h3>
+                    <h3 th:text="${users.size()}">0</h3>
                     <p>Total utilisateurs</p>
                 </div>
             </div>
         </div>
-        
-       
-        
+
         <!-- Tableau des utilisateurs -->
         <div class="users-table-container">
-            
             <table class="users-table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nom Utilisateur</th>
                         <th>Email Utilisateur</th>
-                        <th>Total livers acheter</th>
                     </tr>
                 </thead>
-                <tbody id="users-tbody">
-                    <!-- Les données seront insérées ici par JavaScript -->
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}">1</td>
+                        <td th:text="${user.name}">Nom</td>
+                        <td th:text="${user.email}">email@example.com</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    
-    
 </body>
 </html>
