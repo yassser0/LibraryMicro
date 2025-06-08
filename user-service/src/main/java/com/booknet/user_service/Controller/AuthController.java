@@ -1,5 +1,6 @@
 package com.booknet.user_service.Controller;
 
+import com.booknet.user_service.DTO.UserDTO;
 import com.booknet.user_service.Entity.User;
 import com.booknet.user_service.Service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +26,7 @@ public class AuthController {
         if (error != null) {
             model.addAttribute("error", error);
         }
+       
         return "auth";
     }
 
@@ -58,24 +60,26 @@ public String loginUser(@RequestParam String email,
                         @RequestParam String password,
                         RedirectAttributes redirectAttributes,
                         HttpSession session) {
+    
     return userService.login(email, password)
             .map(user -> {
+                // Stocker l'utilisateur dans la session
                 session.setAttribute("user", user);
 
-                // ✅ Rediriger vers dashboard si admin
+                // Si l'admin se connecte, rediriger vers le tableau de bord admin
                 if ("admine@gmail.com".equalsIgnoreCase(user.getEmail())) {
                     return "redirect:http://localhost:8081/usersDashbord";
                 }
 
-                // Sinon, utilisateur normal
+                // Sinon, rediriger l'utilisateur normal vers sa page d'accueil
                 return "redirect:http://localhost:8081/home";
             })
             .orElseGet(() -> {
+                // En cas d’échec de connexion, renvoyer un message d’erreur
                 redirectAttributes.addAttribute("error", "Email ou mot de passe incorrect.");
                 return "redirect:http://localhost:8081/auth";
             });
 }
-
 
     @GetMapping("/logout")
     public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
@@ -83,4 +87,12 @@ public String loginUser(@RequestParam String email,
         redirectAttributes.addAttribute("success", "Déconnexion réussie.");
           return "redirect:http://localhost:8081/home";
     }
+    @GetMapping("/currentUser")
+@ResponseBody
+public UserDTO getCurrentUser(HttpSession session) {
+    User user = (User) session.getAttribute("user");
+    if (user == null) return null;
+
+    return new UserDTO(user.getId(), user.getName(), user.getEmail());
+}
 }
