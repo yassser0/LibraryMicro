@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BiblioThèque - Gestion des Livres</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/admine-css/booksDashbord.css}">
 </head>
 <body>
@@ -11,188 +12,138 @@
         <div class="header-container">
             <a th:href="@{/home}" class="logo">Book<span>Net</span></a>
             <div class="nav-center">
-            <nav class="nav-links">
-                <a th:href="@{/usersDashbord}" class="nav-link active">Users Dashbord</a>
-                <a th:href="@{/booksDashbord}" class="nav-link">Books Dashbord</a>
-            </nav>
+                <nav class="nav-links">
+                    <a th:href="@{/usersDashbord}" class="nav-link">Users Dashboard</a>
+                    <a th:href="@{/booksDashbord}" class="nav-link active">Books Dashboard</a>
+                </nav>
             </div>
             <div class="auth-buttons">
-                <a th:href="@{/logout}"  class="btn btn-outline">Déconnexion</a>   
-            <div class="spacer"></div>
+                <a th:href="@{/logout}" class="btn btn-outline">Déconnexion</a>
+            </div>
         </div>
     </header>
-    
+
     <div class="main-container">
-       
-        
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Gestion des Livres</h1>
+            <p class="dashboard-subtitle">Gérez votre collection de livres facilement</p>
+        </div>
+
         <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon books">📚</div>
                 <div class="stat-content">
-                    <h3 id="total-books">1,247</h3>
+                    <h3 th:text="${#lists.size(books)}">0</h3>
                     <p>Total des livres</p>
                 </div>
             </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon available">✅</div>
-                <div class="stat-content">
-                    <h3 id="available-books">892</h3>
-                    <p>Livres disponibles</p>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon borrowed">📖</div>
-                <div class="stat-content">
-                    <h3 id="borrowed-books">312</h3>
-                    <p>Livres empruntés</p>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon reserved">📋</div>
-                <div class="stat-content">
-                    <h3 id="reserved-books">43</h3>
-                    <p>Livres réservés</p>
-                </div>
-            </div>
         </div>
-        
-        <!-- Controls -->
+
+        <!-- Add Book Form -->
         <div class="controls">
-            <div class="search-box">
-                <span>🔍</span>
-                <input type="text" placeholder="Rechercher un livre..." id="search-input">
-            </div>
-            
-            <div class="filters">
-                <select class="filter-select" id="category-filter">
-                    <option value="">Toutes les catégories</option>
-                    <option value="roman">Roman</option>
-                    <option value="science">Science</option>
-                    <option value="histoire">Histoire</option>
-                    <option value="art">Art</option>
-                    <option value="jeunesse">Jeunesse</option>
-                </select>
+            <h2 class="form-title">Ajouter un nouveau livre</h2>
+            <form th:action="@{/addBook}" th:object="${newBook}" method="post" class="form-inline">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="title">Titre</label>
+                        <input type="text" id="title" th:field="*{title}" class="form-input" placeholder="Entrez le titre du livre" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="author">Auteur</label>
+                        <input type="text" id="author" th:field="*{author}" class="form-input" placeholder="Entrez le nom de l'auteur" required>
+                    </div>
+                </div>
                 
-                <select class="filter-select" id="status-filter">
-                    <option value="">Tous les statuts</option>
-                    <option value="available">Disponible</option>
-                    <option value="borrowed">Emprunté</option>
-                    <option value="reserved">Réservé</option>
-                </select>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="category">Catégorie</label>
+                        <input type="text" id="category" th:field="*{category}" class="form-input" placeholder="Entrez la catégorie" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="isbn">ISBN</label>
+                        <input type="text" id="isbn" th:field="*{isbn}" class="form-input" placeholder="Entrez l'ISBN" required>
+                    </div>
+                </div>
                 
-                <button class="btn btn-success" id="add-book-btn">+ Ajouter un livre</button>
-            </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="year">Année</label>
+                        <input type="number" id="year" th:field="*{year}" class="form-input" placeholder="Année de publication" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="status">Statut</label>
+                        <select id="status" th:field="*{status}" class="form-select" required>
+                            <option value="">Sélectionnez un statut</option>
+                            <option value="available">Disponible</option>
+                            <option value="borrowed">Emprunté</option>
+                            <option value="reserved">Réservé</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea id="description" th:field="*{description}" class="form-textarea" placeholder="Entrez une description du livre (optionnel)"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-success btn-submit">
+                    <span>📚</span> Ajouter le livre
+                </button>
+            </form>
         </div>
-        
+
         <!-- Books Table -->
         <div class="books-table-container">
             <div class="table-header">
                 <h2 class="table-title">Liste des Livres</h2>
             </div>
             
-            <table class="books-table">
+            <div th:if="${#lists.isEmpty(books)}" class="empty-state">
+                <div class="empty-state-icon">📚</div>
+                <div class="empty-state-text">Aucun livre trouvé</div>
+                <div class="empty-state-subtext">Commencez par ajouter votre premier livre à la collection</div>
+            </div>
+            
+            <table th:if="${!#lists.isEmpty(books)}" class="books-table">
                 <thead>
                     <tr>
-                        <th>Livre</th>
+                        <th>Titre</th>
                         <th>Auteur</th>
                         <th>Catégorie</th>
                         <th>ISBN</th>
-                        <th>Date d'ajout</th>
+                        <th>Année</th>
                         <th>Statut</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                
+                <tbody>
+                    <tr th:each="book : ${books}">
+                        <td>
+                            <strong th:text="${book.title}">Titre</strong>
+                        </td>
+                        <td th:text="${book.author}">Auteur</td>
+                        <td th:text="${book.category}">Catégorie</td>
+                        <td th:text="${book.isbn}">ISBN</td>
+                        <td th:text="${book.year}">Année</td>
+                        <td>
+                            <span class="status-badge" 
+                                  th:class="'status-badge status-' + ${book.status}"
+                                  th:text="${book.status}">
+                                Statut
+                            </span>
+                        </td>
+                        <td>
+                            <a th:href="@{/deleteBook/{id}(id=${book.id})}" 
+                               class="btn btn-danger"
+                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?')">
+                                <span>🗑️</span> Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-            
-            
-        </div>
-    </div>
-    
-    <!-- Modal for Add/Edit Book -->
-    <div class="modal-overlay" id="book-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">Ajouter un nouveau livre</h3>
-                <button class="modal-close" id="close-modal">&times;</button>
-            </div>
-            
-            <div class="modal-body">
-                <form id="book-form">
-                    <div class="form-group">
-                        <label for="book-title" class="form-label">Titre du livre</label>
-                        <input type="text" id="book-title" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="book-author" class="form-label">Auteur</label>
-                        <input type="text" id="book-author" class="form-input" required>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="book-category" class="form-label">Catégorie</label>
-                            <select id="book-category" class="form-input" required>
-                                <option value="">Sélectionner une catégorie</option>
-                                <option value="roman">Roman</option>
-                                <option value="science">Science</option>
-                                <option value="histoire">Histoire</option>
-                                <option value="art">Art</option>
-                                <option value="jeunesse">Jeunesse</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="book-isbn" class="form-label">ISBN</label>
-                            <input type="text" id="book-isbn" class="form-input" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="book-publisher" class="form-label">Éditeur</label>
-                            <input type="text" id="book-publisher" class="form-input">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="book-year" class="form-label">Année de publication</label>
-                            <input type="number" id="book-year" class="form-input" min="1000" max="2025">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="book-pages" class="form-label">Nombre de pages</label>
-                            <input type="number" id="book-pages" class="form-input" min="1">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="book-language" class="form-label">Langue</label>
-                            <select id="book-language" class="form-input">
-                                <option value="fr">Français</option>
-                                <option value="en">Anglais</option>
-                                <option value="es">Espagnol</option>
-                                <option value="de">Allemand</option>
-                                <option value="it">Italien</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="book-description" class="form-label">Description</label>
-                        <textarea id="book-description" class="form-textarea" placeholder="Description du livre..."></textarea>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline" id="cancel-btn">Annuler</button>
-                <button type="submit" class="btn btn-primary" id="save-btn">Enregistrer</button>
-            </div>
         </div>
     </div>
 </body>
