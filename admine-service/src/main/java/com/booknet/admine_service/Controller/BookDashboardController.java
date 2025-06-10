@@ -21,56 +21,69 @@ public class BookDashboardController {
     private RestTemplate restTemplate;
 
     @GetMapping("/booksDashbord")
-    public String showBooks(Model model, HttpServletRequest request) {
-        // 1. Extraire la session
-        String sessionId = Arrays.stream(request.getCookies() != null ? request.getCookies() : new Cookie[0])
-                .filter(c -> "JSESSIONID".equals(c.getName()))
-                .findFirst()
-                .map(Cookie::getValue)
-                .orElse(null);
+public String showBooks(Model model, HttpServletRequest request) {
+    // 1. Extraire la session
+    String sessionId = Arrays.stream(request.getCookies() != null ? request.getCookies() : new Cookie[0])
+            .filter(c -> "JSESSIONID".equals(c.getName()))
+            .findFirst()
+            .map(Cookie::getValue)
+            .orElse(null);
 
-        if (sessionId == null) {
-            return "redirect:http://localhost:8081/auth";
-        }
-
-        // 2. Authentifier l'utilisateur
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.COOKIE, "JSESSIONID=" + sessionId);
-        HttpEntity<Void> entity = new HttpEntity<>(headers);
-
-        ResponseEntity<UserDTO> userResponse;
-        try {
-            userResponse = restTemplate.exchange(
-                    "http://localhost:8082/currentUser",
-                    HttpMethod.GET,
-                    entity,
-                    UserDTO.class
-            );
-        } catch (Exception e) {
-            return "redirect:http://localhost:8081/auth";
-        }
-
-        UserDTO user = userResponse.getBody();
-        if (user == null || !"admine@gmail.com".equalsIgnoreCase(user.getEmail())) {
-            return "redirect:http://localhost:8081/home";
-        }
-
-        // 3. Récupérer les livres
-        List<BookDTO> books = List.of(); // valeur par défaut pour éviter le null
-        try {
-            ResponseEntity<BookDTO[]> response = restTemplate.getForEntity("http://localhost:8083/books", BookDTO[].class);
-            if (response.getBody() != null) {
-                books = Arrays.asList(response.getBody());
-            }
-        } catch (Exception e) {
-            // Tu peux ajouter un log ici si tu veux traquer les erreurs de récupération
-        }
-
-        model.addAttribute("books", books);
-        model.addAttribute("newBook", new BookDTO());
-
-        return "booksDashbord";
+    if (sessionId == null) {
+        return "redirect:http://localhost:8081/auth";
     }
+
+    // 2. Authentifier l'utilisateur
+    HttpHeaders headers = new HttpHeaders();
+    headers.add(HttpHeaders.COOKIE, "JSESSIONID=" + sessionId);
+    HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+    ResponseEntity<UserDTO> userResponse;
+    try {
+        userResponse = restTemplate.exchange(
+                "http://localhost:8082/currentUser",
+                HttpMethod.GET,
+                entity,
+                UserDTO.class
+        );
+    } catch (Exception e) {
+        return "redirect:http://localhost:8081/auth";
+    }
+
+    UserDTO user = userResponse.getBody();
+    if (user == null || !"admine@gmail.com".equalsIgnoreCase(user.getEmail())) {
+        return "redirect:http://localhost:8081/home";
+    }
+
+    // 3. Récupérer les livres
+    List<BookDTO> books = List.of();
+    try {
+        ResponseEntity<BookDTO[]> response = restTemplate.getForEntity("http://localhost:8083/books", BookDTO[].class);
+        if (response.getBody() != null) {
+            books = Arrays.asList(response.getBody());
+        }
+    } catch (Exception e) {
+        // log error if needed
+    }
+
+    // 4. Statistiques
+    long availableCount = books.stream()
+            .filter(b -> b.getStatus() != null && b.getStatus().equalsIgnoreCase("available"))
+            .count();
+
+    long notAvailableCount = books.stream()
+            .filter(b -> b.getStatus() != null && b.getStatus().equalsIgnoreCase("pas en stock"))
+            .count();
+
+    // 5. Ajouter au modèle
+    model.addAttribute("books", books);
+    model.addAttribute("newBook", new BookDTO());
+    model.addAttribute("availableCount", availableCount);
+    model.addAttribute("notAvailableCount", notAvailableCount);
+
+    return "booksDashbord";
+}
+
 
     @PostMapping("/addBook")
     public String addBook(@ModelAttribute BookDTO newBook) {

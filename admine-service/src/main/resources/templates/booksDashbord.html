@@ -33,10 +33,25 @@
         <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-icon books">📚</div>
+                <div class="stat-icon books">📚 📈</div>
                 <div class="stat-content">
                     <h3 th:text="${#lists.size(books)}">0</h3>
                     <p>Total des livres</p>
+                </div>
+                
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon books">📚 ✅</div>
+                <div class="stat-content">
+                  <h3 th:text="${availableCount}">0</h3>
+                    <p>Total des livres disponibles</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon books">📚 ❌</div>
+                <div class="stat-content">
+                  <h3 th:text="${notAvailableCount}">0</h3>
+                    <p>Total des livres n'est pas en stock</p>
                 </div>
             </div>
         </div>
