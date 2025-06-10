@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNet - Livres Disponibles</title>
+    <link rel="stylesheet" th:href="@{/book-css/BooksAvailable.css}">
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <a th:href="@{/home}" class="logo">Book<span>Net</span></a>
+
+        <nav class="nav-links">
+            <a th:href="@{/home}" class="nav-link active">Accueil</a>
+            <a th:href="@{/usersDashbord}" class="nav-link"
+               th:if="${sessionUser != null and sessionUser.email == 'admine@gmail.com'}">Admin</a>
+            <a th:href="@{/profile}" class="nav-link" th:if="${sessionUser != null}">Profile</a>
+            <a th:href="@{/BooksAvailable}" class="nav-link">Livres Disponibles</a>
+            <a th:href="@{/home#Fonctionnalités}" class="nav-link">Fonctionnalités</a>
+            <a href="#Contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="auth-buttons" th:if="${sessionUser == null}">
+            <a th:href="@{/auth}" class="btn btn-outline">Connexion</a>
+            <a th:href="@{/auth}" class="btn btn-primary">S'inscrire</a>
+        </div>
+        <div class="auth-buttons" th:if="${sessionUser != null}">
+            <a th:href="@{/logout}" class="btn btn-outline">Déconnexion</a>
+        </div>
+
+        <button class="mobile-menu-btn">☰</button>
+    </div>
+</header>
+
+<section class="page-title">
+    <h1>Livres Disponibles</h1>
+    <p>Découvrez notre collection diversifiée de livres disponibles à l'emprunt.</p>
+</section>
+
+<section class="books-section">
+    <div class="books-container">
+        <div class="books-grid">
+            <div class="book-card" th:each="book : ${books}">
+                <img src="/api/placeholder/250/300" alt="Couverture du livre" class="book-cover">
+                <div class="book-details">
+                    <h3 class="book-title" th:text="${book.title}">Titre</h3>
+                    <p class="book-author" th:text="${book.author}">Auteur</p>
+                    <p class="book-description" th:text="${book.description}">Description</p>
+                    <div class="book-meta">
+                        <span class="book-category" th:text="${book.category}">Catégorie</span>
+                        <span th:if="${book.status == 'Disponible'}" class="book-available">Disponible</span>
+                        <span th:if="${book.status == 'pas en stock'}" class="book-unavailable">pas en stock</span>
+                       
+                    </div>
+                     <a href="#" class="btn btn-primary" th:if="${book.status == 'available'}"  th:text="'Acheter'"></a>
+                     <a href="#" class="btn btn-primary" th:if="${book.status != 'available'}" th:text="'Voir le livre'"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3 id="Contact">BookNet</h3>
+            <ul class="footer-links">
+                <li><a href="#">À propos de nous</a></li>
+                <li><a href="#">Notre équipe</a></li>
+                <li><a href="#">Carrières</a></li>
+                <li><a href="#">Blog</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Produit</h3>
+            <ul class="footer-links">
+                <li><a href="#">Fonctionnalités</a></li>
+                <li><a href="#">Tarifs</a></li>
+                <li><a href="#">Témoignages</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Ressources</h3>
+            <ul class="footer-links">
+                <li><a href="#">Centre d'aide</a></li>
+                <li><a href="#">Documentation</a></li>
+                <li><a href="#">Tutoriels vidéo</a></li>
+                <li><a href="#">Webinaires</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul class="footer-links">
+                <li><a href="#">support@booknet.com</a></li>
+                <li><a href="#">07 16 97 22 38</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 BookNet. Tous droits réservés.</p>
+    </div>
+</footer>
+
+<script th:src="@{/book-js/BooksAvailable.js}"></script>
+</body>
+</html>
