@@ -65,6 +65,10 @@
                         <label class="form-label" for="isbn">ISBN</label>
                         <input type="text" id="isbn" th:field="*{isbn}" class="form-input" placeholder="Entrez l'ISBN" required>
                     </div>
+                    <div class="form-group">
+                        <label class="form-label" for="isbn">Prix</label>
+                        <input type="number" id="prix" th:field="*{prix}" class="form-input" placeholder="Entrez le Prix" required>
+                    </div>
                 </div>
                 
                 <div class="form-row">
@@ -77,8 +81,8 @@
                         <select id="status" th:field="*{status}" class="form-select" required>
                             <option value="">Sélectionnez un statut</option>
                             <option value="available">Disponible</option>
-                            <option value="borrowed">Emprunté</option>
-                            <option value="reserved">Réservé</option>
+                            <option value="pas en stock">Pas En Stock</option>
+                          
                         </select>
                     </div>
                 </div>
@@ -115,6 +119,8 @@
                         <th>ISBN</th>
                         <th>Année</th>
                         <th>Statut</th>
+                        <th>Prix</th>
+                        
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -134,12 +140,17 @@
                                 Statut
                             </span>
                         </td>
+                        <td th:text="${book.prix} + ' DH'">Prix</td>
+                        
                         <td>
                             <a th:href="@{/deleteBook/{id}(id=${book.id})}" 
                                class="btn btn-danger"
                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livre ?')">
                                 <span>🗑️</span> Supprimer
                             </a>
+                            <a th:href="@{/editBook/{id}(id=${book.id})}" class="btn btn-primary">
+                                <span>✏️</span> Modifier
+      
                         </td>
                     </tr>
                 </tbody>

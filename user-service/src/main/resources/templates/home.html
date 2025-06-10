@@ -14,8 +14,9 @@
             
             <nav class="nav-links">
                 <a th:href="@{/home}" class="nav-link active">Accueil</a>
+                <a th:href="@{/usersDashbord}" class="nav-link" th:if="${session.user != null and session.user.email == 'admine@gmail.com'}"> Admin</a>
                 <a th:href="@{/profile}" class="nav-link" th:if="${session.user != null}">profile</a>
-                 <a th:href="@{/usersDashbord}" class="nav-link" th:if="${session.user != null and session.user.email == 'admine@gmail.com'}"> Admin</a>
+            
                 <a th:href="@{/BooksAvailable}" class="nav-link">Livres Disponibles</a>
                 <a href="#Fonctionnalités" class="nav-link">Fonctionnalités</a>
                 <a href="#Contact" class="nav-link">Contact</a>

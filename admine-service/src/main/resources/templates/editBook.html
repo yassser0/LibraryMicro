@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un livre</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/admine-css/editBook.css}">
+</head>
+<body>
+    <div class="main-container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">📚 Modifier le Livre</h1>
+            <p class="dashboard-subtitle">Mettez à jour les informations du livre</p>
+        </div>
+        
+        <div class="controls">
+            <form th:action="@{/updateBook}" th:object="${book}" method="post" class="form-inline">
+                <input type="hidden" th:field="*{id}"/>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">📖 Titre :</label>
+                        <input type="text" th:field="*{title}" class="form-input" required placeholder="Entrez le titre du livre"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">✍️ Auteur :</label>
+                        <input type="text" th:field="*{author}" class="form-input" required placeholder="Nom de l'auteur"/>
+                    </div>
+                    
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">📅Année</label>
+                        <input type="number" th:field="*{year}" class="form-input" required placeholder="year"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">🏷️ Catégorie :</label>
+                        <input type="text" th:field="*{category}" class="form-input" required placeholder="Genre ou catégorie"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">🔢 ISBN :</label>
+                        <input type="text" th:field="*{isbn}" class="form-input" required placeholder="Numéro ISBN"/>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">💰 Prix :</label>
+                        <input type="number" th:field="*{prix}" class="form-input" required placeholder="Prix en DH" step="0.01"/>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label class="form-label">📊 Statut :</label>
+                        <select th:field="*{status}" class="form-select" required>
+                            <option value="">Sélectionnez un statut</option>
+                            <option value="available">✅ Disponible</option>
+                            <option value="pas en stock">❌ Pas En Stock</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">📝 Description :</label>
+                    <textarea th:field="*{description}" class="form-textarea" placeholder="Description détaillée du livre..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">💾 Enregistrer les modifications</button>
+                    <a th:href="@{/booksDashbord}" class="btn btn-outline">↩️ Retour au tableau de bord</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

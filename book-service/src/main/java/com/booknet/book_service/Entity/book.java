@@ -15,6 +15,14 @@ public class book {
     private int year;
     private String description;
     private String status; 
+    private String prix;
+
+    public String getPrix() {
+        return prix;
+    }
+    public void setPrix(String prix) {
+        this.prix = prix;
+    }
 
     public Long getId() {
         return id;
