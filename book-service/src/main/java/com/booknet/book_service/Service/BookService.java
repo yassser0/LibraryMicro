@@ -1,4 +1,5 @@
 package com.booknet.book_service.Service;
+import com.booknet.book_service.DTO.BookDTO;
 import com.booknet.book_service.Entity.book;
 import com.booknet.book_service.Repository.BookRepository;
 import org.springframework.stereotype.Service;
@@ -28,4 +29,25 @@ public class BookService {
     public book findById(Long id) {
     return bookRepository.findById(id).orElse(null);
 }
+
+ public BookDTO getBookDTOById(Long id) {
+        book b = bookRepository.findById(id).orElse(null);
+        if (b == null) return null;
+        return convertToDTO(b);
+    }
+
+    private BookDTO convertToDTO(book b) {
+        BookDTO dto = new BookDTO();
+        dto.setId(b.getId());
+        dto.setTitle(b.getTitle());
+        dto.setAuthor(b.getAuthor());
+        dto.setCategory(b.getCategory());
+        dto.setIsbn(b.getIsbn());
+        dto.setYear(b.getYear());
+        dto.setDescription(b.getDescription());
+        dto.setStatus(b.getStatus());
+        dto.setPrix(b.getPrix());
+        return dto;
+    }
 }
+

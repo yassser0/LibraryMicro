@@ -37,6 +37,36 @@
     <h1>Livres Disponibles</h1>
     <p>Découvrez notre collection diversifiée de livres disponibles à l'emprunt.</p>
 </section>
+<section class="search-section">
+        <div class="search-container">
+            <form class="search-form">
+                <input type="text" class="search-input" placeholder="Rechercher par titre, auteur ou ISBN...">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </form>
+            
+            <div class="filter-container">
+                <select class="filter-select">
+                    <option value="">Catégorie</option>
+                    <option value="roman">Roman</option>
+                    <option value="science-fiction">Science-Fiction</option>
+                    <option value="policier">Policier</option>
+                    <option value="biographie">Biographie</option>
+                    <option value="jeunesse">Jeunesse</option>
+                    <option value="manga">Manga</option>
+                    <option value="histoire">Histoire</option>
+                    <option value="science">Science</option>
+                </select>
+                
+                <select class="filter-select">
+                    <option value="">Disponibilité</option>
+                    <option value="available">Disponible</option>
+                    <option value="Pas en Stock">Pas En Stock</option>
+                </select>
+                
+               
+            </div>
+        </div>
+    </section>
 
 <section class="books-section">
     <div class="books-container">
@@ -53,8 +83,8 @@
                         <span th:if="${book.status == 'pas en stock'}" class="book-unavailable">pas en stock</span>
                        
                     </div>
-                     <a href="#" class="btn btn-primary" th:if="${book.status == 'available'}"  th:text="'Acheter'"></a>
-                     <a href="#" class="btn btn-primary" th:if="${book.status != 'available'}" th:text="'Voir le livre'"></a>
+                     <a th:href="@{'/BooksDetail?id=' + ${book.id}}" class="btn btn-primary" th:if="${book.status == 'available'}"  th:text="'Acheter'"></a>
+                     <a th:href="@{'/BooksDetail?id=' + ${book.id}}" class="btn btn-primary" th:if="${book.status != 'available'}" th:text="'Voir le livre'"></a>
                 </div>
             </div>
         </div>

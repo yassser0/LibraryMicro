@@ -16,7 +16,7 @@ spring:
         - id: book-service
           uri: http://localhost:8083
           predicates:
-            - Path=/books/**,/BooksAvailable/**,/book-css/**,/book-js/**
+            - Path=/books/**,/BooksAvailable/**,/BooksDetail/**,/book-css/**,/book-js/**
 
         - id: admine-service
           uri: http://localhost:8084
