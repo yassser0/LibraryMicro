@@ -23,6 +23,10 @@ spring:
           predicates:
             - Path=/usersDashbord ,/booksDashbord ,/addBook,/deleteBook/**,/updateBook,/editBook/**,/admine-css/**
                     
+        - id: payment-service
+          uri: http://localhost:8085
+          predicates:
+            - Path=/payment/**,/payment-css/**,/payment-js/**
       
 
         

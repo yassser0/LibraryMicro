@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement - Finaliser votre commande</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/payment-css/payment.css}">
+</head>
+<body>
+    <div class="main-container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">💳 Finaliser votre commande</h1>
+            <p class="dashboard-subtitle">Sécurisé et rapide</p>
+        </div>
+        
+        <div class="payment-form">
+            <h2 class="form-title">🛒 Informations de paiement</h2>
+            
+            <form id="paymentForm">
+                <!-- Informations de livraison -->
+                <div class="form-section">
+                    <h3 class="section-title"></h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nom complet</label>
+                            <input type="text" class="form-input" required placeholder="Votre prénom et nom">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Adresse</label>
+                        <input type="text" class="form-input" required placeholder="Adresse complète">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Ville</label>
+                            <input type="text" class="form-input" required placeholder="Ville">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Code postal</label>
+                            <input type="text" class="form-input" required placeholder="Code postal">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Téléphone</label>
+                        <input type="tel" class="form-input" required placeholder="Numéro de téléphone">
+                    </div>
+                </div>
+                
+                <!-- Méthodes de paiement -->
+                <div class="form-section">
+                    <h3 class="section-title">💳 Mode de paiement</h3>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method" onclick="selectPayment('card')">
+                            <input type="radio" name="payment" value="card" id="card">
+                            <div class="payment-method-info">
+                                <div class="payment-method-name">💳 Carte bancaire</div>
+                                <div class="payment-method-desc">Visa, Mastercard, American Express</div>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        <div class="payment-method" onclick="selectPayment('cash')">
+                            <input type="radio" name="payment" value="cash" id="cash">
+                            <div class="payment-method-info">
+                                <div class="payment-method-name">💵 Paiement à la livraison</div>
+                                <div class="payment-method-desc">Payez en espèces lors de la réception</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Détails carte bancaire -->
+                    <div class="card-details" id="cardDetails">
+                        <div class="form-group full-width">
+                            <label class="form-label">Numéro de carte</label>
+                            <input type="text" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Date d'expiration</label>
+                                <input type="text" class="form-input" placeholder="MM/AA" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">CVV</label>
+                                <input type="text" class="form-input" placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="form-label">Nom sur la carte</label>
+                            <input type="text" class="form-input" placeholder="Nom complet">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Résumé de commande -->
+        <div class="order-summary">
+            <h2 class="form-title">📋 Résumé de commande</h2>
+            
+            <div class="order-item">
+                <div class="item-info">
+                    <h4>Le Petit Prince</h4>
+                    <p>Antoine de Saint-Exupéry • Quantité: 1</p>
+                </div>
+                <div class="item-price">85.00 DH</div>
+            </div>
+            
+            <div class="order-item">
+                <div class="item-info">
+                    <h4>1984</h4>
+                    <p>George Orwell • Quantité: 2</p>
+                </div>
+                <div class="item-price">150.00 DH</div>
+            </div>
+            
+            <div class="order-item">
+                <div class="item-info">
+                    <h4>L'Étranger</h4>
+                    <p>Albert Camus • Quantité: 1</p>
+                </div>
+                <div class="item-price">75.00 DH</div>
+            </div>
+            
+            <div class="total-section">
+                <div class="total-row final">
+                    <span>Total:</span>
+                    <span>397.00 DH</span>
+                </div>
+            </div>
+            <button type="submit" form="paymentForm" class="btn btn-success">🔒 Finaliser la commande</button>
+        </div>
+    </div>
+    
+    <script th:src="@{/payment-js/payment.js}"> </script>
+</body>
+</html>
