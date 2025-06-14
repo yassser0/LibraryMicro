@@ -73,11 +73,8 @@
                     Description complète du livre ici.
                 </p>
                 <div class="action-buttons">
-                    <button class="btn btn-primary"
-                            th:if="${sessionUser != null and book.status == 'available'}" th:text="'Acheter ce livre'">
-                    </button>
+                   <a th:if="${sessionUser != null and book.status == 'available'}" th:href="@{/payment(bookId=${book.id})}" class="btn btn-primary">Acheter ce livre</a>
                     <a class="btn btn-primary" th:if="${sessionUser == null}" th:href="@{/auth}" th:text="'Connectez-vous ?'"></a>
-                    
                 </div>
             </div>
         </div>

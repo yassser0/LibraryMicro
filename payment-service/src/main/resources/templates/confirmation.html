@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de commande</title>
+    <link rel="stylesheet" th:href="@{/payment-css/confirmation.css}">
+</head>
+<body>
+<div class="receipt-container">
+    <h1>🎉 Paiement confirmé</h1>
+    
+    <p>Merci pour votre commande, <span th:text="${order.name}">Nom</span> !</p>
+    
+    <div class="receipt-details">
+        <div class="detail-row"><span>Email :</span> <span th:text="${order.email}"></span></div>
+        <div class="detail-row"><span>Adresse :</span> <span th:text="${order.address}"></span></div>
+        <div class="detail-row"><span>Ville :</span> <span th:text="${order.city}"></span></div>
+        <div class="detail-row"><span>Code postal :</span> <span th:text="${order.postalCode}"></span></div>
+        <div class="detail-row"><span>Téléphone :</span> <span th:text="${order.phone}"></span></div>
+        <div class="detail-row"><span>Méthode de paiement :</span> <span th:text="${order.paymentMethod}"></span></div>
+        <div class="detail-row"><span>Total :</span> <span th:text="${order.totalAmount} + ' DH'"></span></div>
+    </div>
+    
+    <button class="btn-print" onclick="window.print()">🖨️ Imprimer le reçu</button>
+    <a class="btn-home" th:href="@{/home}">🏠 Retour à l'accueil</a>
+</div>
+</body>
+</html>

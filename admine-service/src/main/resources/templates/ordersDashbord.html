@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord Admin - BookNet</title>
-    <link rel="stylesheet" th:href="@{/admine-css/usersDashbord.css}">
+    <link rel="stylesheet" th:href="@{/admine-css/ordersDashbord.css}">
 </head>
 <body>
     <header>
@@ -28,10 +28,10 @@
         <!-- Statistiques -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-icon users">👥 📈</div>
+                <div class="stat-icon users">📚 📈</div>
                 <div class="stat-content">
-                    <h3 th:text="${users.size()}">0</h3>
-                    <p>Total utilisateurs</p>
+                    <h3 th:text="${totalSold}"></h3>
+                    <p>Total livres vendus </p>
                 </div>
             </div>
         </div>
@@ -41,16 +41,18 @@
             <table class="users-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nom Utilisateur</th>
                         <th>Email Utilisateur</th>
+                        <th>Nom du livre</th>
+                        <th>Prix de livre</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.id}">1</td>
-                        <td th:text="${user.name}">Nom</td>
-                        <td th:text="${user.email}">email@example.com</td>
+                    <tr th:each="orders : ${orders}">
+                        <td th:text="${orders.name}"></td>
+                        <td th:text="${orders.email}"></td>
+                        <td th:text="${orders.BookName}"></td>
+                        <td th:text="${orders.prix}"></td>
                     </tr>
                 </tbody>
             </table>

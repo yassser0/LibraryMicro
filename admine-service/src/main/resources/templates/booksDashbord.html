@@ -12,14 +12,15 @@
         <div class="header-container">
             <a th:href="@{/home}" class="logo">Book<span>Net</span></a>
             <div class="nav-center">
-                <nav class="nav-links">
-                    <a th:href="@{/usersDashbord}" class="nav-link">Users Dashboard</a>
-                    <a th:href="@{/booksDashbord}" class="nav-link active">Books Dashboard</a>
-                </nav>
+            <nav class="nav-links">
+                <a th:href="@{/usersDashbord}" class="nav-link active">Users Dashbord</a>
+                <a th:href="@{/booksDashbord}" class="nav-link">Books Dashbord</a>
+                <a th:href="@{/ordersDashbord}" class="nav-link">Orders Dashbord</a>
+            </nav>
             </div>
             <div class="auth-buttons">
-                <a th:href="@{/logout}" class="btn btn-outline">Déconnexion</a>
-            </div>
+                <a th:href="@{/logout}"  class="btn btn-outline">Déconnexion</a>   
+            <div class="spacer"></div>
         </div>
     </header>
 

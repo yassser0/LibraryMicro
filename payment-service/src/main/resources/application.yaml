@@ -6,7 +6,7 @@ spring:
   application:
     name: payment-service
   datasource:
-    url: jdbc:mysql://localhost:3306/bookent_payments
+    url: jdbc:mysql://localhost:3306/booknet_payments
     username: root
     password: yasser331790
   jpa:

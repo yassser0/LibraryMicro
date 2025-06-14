@@ -17,7 +17,7 @@
         <div class="payment-form">
             <h2 class="form-title">🛒 Informations de paiement</h2>
             
-            <form id="paymentForm">
+            <form th:action="@{/submitOrder(bookId=${book.id})}" th:object="${order}" method="post" id="paymentForm">
                 <!-- Informations de livraison -->
                 <div class="form-section">
                     <h3 class="section-title"></h3>
@@ -25,29 +25,29 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Nom complet</label>
-                            <input type="text" class="form-input" required placeholder="Votre prénom et nom">
+                            <input type="text" class="form-input" th:field="*{name}" required placeholder="Votre prénom et nom">
                         </div>
                     </div>
                     
                     <div class="form-group full-width">
                         <label class="form-label">Adresse</label>
-                        <input type="text" class="form-input" required placeholder="Adresse complète">
+                        <input type="text" class="form-input"  th:field="*{address}" required placeholder="Adresse complète">
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Ville</label>
-                            <input type="text" class="form-input" required placeholder="Ville">
+                            <input type="text" class="form-input" th:field="*{city}"  required placeholder="Ville">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Code postal</label>
-                            <input type="text" class="form-input" required placeholder="Code postal">
+                            <input type="text" class="form-input"  th:field="*{postalCode}" required placeholder="Code postal">
                         </div>
                     </div>
                     
                     <div class="form-group full-width">
                         <label class="form-label">Téléphone</label>
-                        <input type="tel" class="form-input" required placeholder="Numéro de téléphone">
+                        <input type="tel" class="form-input" th:field="*{phone}"  required placeholder="Numéro de téléphone">
                     </div>
                 </div>
                 
@@ -57,7 +57,7 @@
                     
                     <div class="payment-methods">
                         <div class="payment-method" onclick="selectPayment('card')">
-                            <input type="radio" name="payment" value="card" id="card">
+                            <input type="radio" name="paymentMethod" value="card" id="card" required th:checked="${order.paymentMethod == 'card'}">
                             <div class="payment-method-info">
                                 <div class="payment-method-name">💳 Carte bancaire</div>
                                 <div class="payment-method-desc">Visa, Mastercard, American Express</div>
@@ -66,13 +66,7 @@
                         
                         
                         
-                        <div class="payment-method" onclick="selectPayment('cash')">
-                            <input type="radio" name="payment" value="cash" id="cash">
-                            <div class="payment-method-info">
-                                <div class="payment-method-name">💵 Paiement à la livraison</div>
-                                <div class="payment-method-desc">Payez en espèces lors de la réception</div>
-                            </div>
-                        </div>
+                    
                     </div>
                     
                     <!-- Détails carte bancaire -->
@@ -108,35 +102,22 @@
             
             <div class="order-item">
                 <div class="item-info">
-                    <h4>Le Petit Prince</h4>
-                    <p>Antoine de Saint-Exupéry • Quantité: 1</p>
+                    <h4 th:text="${book.title}"></h4>
+                    <p th:text="'Auteur: ' + ${book.author}"></p>
                 </div>
-                <div class="item-price">85.00 DH</div>
+                <div class="item-price" th:text="${book.prix} + ' DH'">Prix</div>
             </div>
             
-            <div class="order-item">
-                <div class="item-info">
-                    <h4>1984</h4>
-                    <p>George Orwell • Quantité: 2</p>
-                </div>
-                <div class="item-price">150.00 DH</div>
-            </div>
-            
-            <div class="order-item">
-                <div class="item-info">
-                    <h4>L'Étranger</h4>
-                    <p>Albert Camus • Quantité: 1</p>
-                </div>
-                <div class="item-price">75.00 DH</div>
-            </div>
-            
+           
             <div class="total-section">
                 <div class="total-row final">
                     <span>Total:</span>
-                    <span>397.00 DH</span>
+                    <span th:text="${book.prix} + ' DH'">Total:</span>
                 </div>
             </div>
-            <button type="submit" form="paymentForm" class="btn btn-success">🔒 Finaliser la commande</button>
+            
+           
+            <button type="submit" form="paymentForm" class="btn btn-success" >🔒 Finaliser la commande</button>
         </div>
     </div>
     

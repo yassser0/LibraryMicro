@@ -1,0 +1,46 @@
+  body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9f9f9;
+            padding: 20px;
+            color: #333;
+        }
+        .receipt-container {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #22a565;
+            text-align: center;
+        }
+        .receipt-details {
+            margin-top: 20px;
+        }
+        .detail-row {
+            margin-bottom: 10px;
+        }
+        .detail-row span {
+            font-weight: bold;
+        }
+        /* Style uniforme pour les deux boutons */
+        .btn-print, .btn-home {
+            display: block;
+            margin: 15px auto 0;
+            padding: 10px 20px;
+            background-color: #22a565;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+            font-family: inherit;
+        }
+        .btn-print:hover, .btn-home:hover {
+            background-color: #1b8f50;
+        }
