@@ -26,7 +26,7 @@ spring:
         - id: payment-service
           uri: http://localhost:8085
           predicates:
-            - Path=/payment/**,/submitOrder/**,/confirmation,/payment-css/**,/payment-js/**
+            - Path=/payment/**,/submitOrder/**,/confirmation,/payment-css/**,/orders/user,/payment-js/**
       
 
         

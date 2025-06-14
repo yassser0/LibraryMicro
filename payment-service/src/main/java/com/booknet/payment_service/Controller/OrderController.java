@@ -33,5 +33,10 @@ public class OrderController {
             return dto;
         }).collect(Collectors.toList());
     }
+     // ✅ Endpoint pour récupérer les commandes par email
+    @GetMapping("/user")
+    public List<Order> getOrdersByUserEmail(@RequestParam("email") String email) {
+        return orderRepository.findByEmail(email);
+    }
 }
 

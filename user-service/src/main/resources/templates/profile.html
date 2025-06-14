@@ -128,50 +128,30 @@
                     </form>
                 </div>
 
-                <!-- Borrowed Books (exemple statique, à remplacer par Thymeleaf) 
+                
                 <div class="form-section">
-                    <h2>
-                        <i class="fas fa-book-open"></i>
-                        Mes Livres Empruntés
-                    </h2>
-                    <div class="borrowed-books-list">
-                         Ici une boucle Thymeleaf peut générer les éléments empruntés 
-                        <div class="borrowed-book-item">
-                            <div class="borrowed-book-cover">
-                                <div class="book-placeholder"><i class="fas fa-book"></i></div>
-                            </div>
-                            <div class="borrowed-book-info">
-                                <h3 class="borrowed-book-title">Le Petit Prince</h3>
-                                <p class="borrowed-book-author">Antoine de Saint-Exupéry</p>
-                                <div class="borrowed-book-meta">
-                                    <span class="borrowed-date"><i class="fas fa-calendar-alt"></i> Emprunté le 15 Mai 2024</span>
-                                    <span class="return-date due-soon"><i class="fas fa-clock"></i> À rendre le 15 Juin 2024</span>
-                                </div>
-                                <div class="book-progress">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 75%"></div>
-                                    </div>
-                                    <span class="progress-text">75% lu</span>
-                                </div>
-                            </div>
-                            <div class="borrowed-book-actions">
-                                <form method="post" action="/books/1/renew">
-                                    <button class="btn btn-primary btn-sm" type="submit">
-                                        <i class="fas fa-redo"></i>
-                                        Renouveler
-                                    </button>
-                                </form>
-                                <form method="post" action="/books/1/return">
-                                    <button class="btn btn-success btn-sm" type="submit">
-                                        <i class="fas fa-check"></i>
-                                        Rendre
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                         Répéter pour chaque livre 
-                    </div>
-                </div> -->
+    <h2>
+        <i class="fas fa-book-open"></i>
+        Mes Livres 
+    </h2>
+
+    <div class="borrowed-books-list">
+        <div th:if="${#lists.isEmpty(purchasedBooks)}">
+            <p>Aucun livre acheté pour le moment.</p>
+        </div>
+
+        <div class="borrowed-book-item" th:each="order : ${purchasedBooks}">
+            <div class="borrowed-book-cover">
+                <div class="book-placeholder"><i class="fas fa-book"></i></div>
+            </div>
+            <div class="borrowed-book-info">
+                <h3 class="borrowed-book-title" th:text="${order.bookName}">Titre</h3>
+                <p class="borrowed-book-author" th:text="${order.totalAmount + 'DH'}">prix</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
                 <!-- Password Settings -->
 <div class="form-section">
